@@ -1,0 +1,20 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main(){
+    stack <char>s;
+    string str="Aditya";
+    string r="";
+    for(int i=0;i<str.size();i++){
+        char ch=str[i];
+        s.push(ch);
+    }
+    while(!s.empty()){
+        
+        char ch=s.top();
+        r.push_back(ch);
+        s.pop();
+    }
+    cout<<r<<endl;
+}
