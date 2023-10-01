@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool operand(char c){
+    if((c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9')){
+        return true;
+    }
+    return false;
+}
+
+void infix(string s){
+    stack <string> st;
+    for (int i=0;s[i]!='\0';i++){
+        if(operand(s[i])){
+            string op(1,s[i]); //since stack is of type string so for pushing string into stack we have created the another stak which is copying 1 characrer each time from index s[i]
+            st.push(op);
+        }
+        else{
+            string a=st.top();
+            st.pop();
+            string b=st.top();
+            st.pop();
+            st.push( "("+ b + s[i] + a + ")" );
+        }
+    }
+    cout<<st.top();
+}
+
+int main(){
+    string s="231*+9-";
+    infix(s);
+}
