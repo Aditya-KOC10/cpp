@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string balance (string s){
+    stack <char> st;
+    for(int i=0;i<s.size();i++){
+        char c=s[i];
+        if(s[i]=='(' || s[i]=='{' || s[i]=='[' ){
+            st.push(c);
+        }
+        else if(s[i]==')' || s[i]==']' || s[i]=='}') {
+            if(st.top()=='(' && s[i]==')'){
+                st.pop();
+            }
+            else if(st.top()=='{' && s[i]=='}'){
+                st.pop();
+                
+            }
+            else if(st.top()=='[' && s[i]==']'){
+                st.pop();
+            }
+            else{
+                st.push(c);
+            }
+        }
+    }
+    if(st.empty()){
+        return "balance";
+    }
+    return "not";
+    
+}
+
+int main(){
+    string s="[()]{}{[()()]()}";
+    cout<<balance(s);
+}
