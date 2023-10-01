@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int prec(char c){
+    if(c=='^'){
+        return 3;
+    }
+    else if(c=='/' || c=='*'){
+        return 2;
+    }
+    else if(c=='+' || c=='-'){
+        return 1;
+    }
+    else {
+        return -1;
+    }
+}
+
+void postfix(string s){
+    int i;
+    string result="";
+    stack <char> ch;
+    for (i=0;i<s.size();i++){
+        char c=s[i];
+        if((c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9')){
+            result+=c;
+        }
+        else if(c=='('){
+            ch.push(c);
+        }
+        else if(c==')'){
+            while(ch.top()!='('){
+            result+=ch.top();
+            ch.pop();
+            }
+            ch.pop();
+            
+        }
+        else {
+            while(!ch.empty() && prec(c)<=prec(ch.top())){
+                result+=ch.top();
+                ch.pop();
+            }
+            ch.push(c);
+        }
+    }
+    while(!ch.empty()){
+        result+=ch.top();
+        ch.pop();
+    }
+    
+    cout<<"postfix exp: "<<result<<endl;
+}
+
+int main(){
+    string s="a+b*(c^d-e)^(f+g*h)-i";
+    postfix(s);
+}
